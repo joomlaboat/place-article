@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+	<name>Place Article</name>
+	<author>Ivan Komlev</author>
+	<creationDate>May 2018</creationDate>
+	<copyright>Copyright (C) 2010-2018 Ivan Komlev. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>support@joomlaboat.com</authorEmail>
+	<authorUrl>http://www.joomlaboat.com/</authorUrl>
+	<version>2.2.1</version>
+	<description><![CDATA[
+<h1>Place an Article v2.2.1</h1>
+
+<p>A pluging to show one article inside another, useful for replaceable text like some instructions or terms, can be shown inside any article or module. Include this code {article=Article ID}</p>
+
+<p>For example you publish the same text on several pages, and every time when you need to make changes in that text you have to change all the pages with this text. But now you have this Place an Article Plugin, so the advantage of the plugn is</p>
+
+<p>1. You make changes in one article, and these changes appear automatically in all webpages that refers to that text.</p>
+<p>2. Save time = save money.</p>
+
+<p>Example:</p>
+<p>{article=544}</p>
+	]]>
+	</description>
+	<files>
+		<filename plugin="placearticle">placearticle.php</filename>
+	</files>
+	
+	<!-- Runs on install/uninstall/update; New in 2.5 -->
+	<scriptfile>script.php</scriptfile>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field type="list" name="allowcontentplugins" default="0" label="Allow Content Plugins" description="" >
+					<option value="1">Yes</option>
+					<option value="0">No</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+
+
+	<languages>
+	      <language tag="en-GB">language/en-GB/en-GB.plg_system_placearticle.ini</language>
+	</languages>
+
+
+	<updateservers>
+	    <server type="extension" priority="2" enabled="1" element="plg_placearticle" name="Place Article">https://joomlaboat.com/updates/extensions/placearticle.xml</server>
+	</updateservers>
+        
+</extension>

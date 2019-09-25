@@ -2,14 +2,14 @@
 <extension version="2.5" type="plugin" group="system" method="upgrade">
 	<name>Place Article</name>
 	<author>Ivan Komlev</author>
-	<creationDate>May 2018</creationDate>
-	<copyright>Copyright (C) 2010-2018 Ivan Komlev. All rights reserved.</copyright>
+	<creationDate>September 2019</creationDate>
+	<copyright>Copyright (C) 2010-2019 Ivan Komlev. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>support@joomlaboat.com</authorEmail>
 	<authorUrl>http://www.joomlaboat.com/</authorUrl>
-	<version>2.2.1</version>
+	<version>2.2.2</version>
 	<description><![CDATA[
-<h1>Place an Article v2.2.1</h1>
+<h1>Place an Article v2.2.2</h1>
 
 <p>A pluging to show one article inside another, useful for replaceable text like some instructions or terms, can be shown inside any article or module. Include this code {article=Article ID}</p>
 

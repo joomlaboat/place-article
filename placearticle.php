@@ -11,29 +11,43 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-
-jimport('joomla.plugin.plugin');
+use Joomla\CMS\Version;
 
 class plgSystemPlaceArticle extends JPlugin
 {
-
+	protected $app;
 
 	public function onAfterRender()
 	{
-		
-		$app = JFactory::getApplication();
+		$version = new Version;
 
-		if($app->isSite())
+		$isSite=true;
+		if((int)$version->getShortVersion()>=4)
+			$isSite=$this->app->isClient('site');
+		else
+			$isSite=JFactory::getApplication()->isSite();
+		
+		if($isSite)
 		{
+			
 			//Only run from the client-side, never the admin side
-			$output = JResponse::getBody();
+			if((int)$version->getShortVersion()>=4)
+				$output= $this->app->getBody();
+			else
+				$output = JResponse::getBody();
+				
+
 			if(strpos($output,'{article')!==false)
 			{
 				//continue until all possible artcles will be placed in to output;
 				$last_length=strlen($output);
 				$count=$this->plgPlaceArticle($output);
 				$length=strlen($output);
-				JResponse::setBody($output);
+				
+				if((int)$version->getShortVersion()>=4)
+					$this->app->setBody($output);
+				else
+					JResponse::setBody($output);
 
 			}
 		}
@@ -65,15 +79,15 @@ class plgSystemPlaceArticle extends JPlugin
 				
 				$articleid=$pair[0];
 				
-				if($pair[1]!='' and $pair[1]!='introtext')
+				if(isset($pair[1]) and $pair[1]!='' and $pair[1]!='introtext')
 				{
-					$result="\n<!-- Place Article *article.".$pair[1]."=".$articleid."* -->\n"
-						.$this->getArticle($articleid,$pair[1])."\n<!-- end of Place Article -->\n";
+					//$result="\n<!-- Place Article *article.".$pair[1]."=".$articleid."* -->\n"
+					$result=$this->getArticle($articleid,$pair[1]);//."\n<!-- end of Place Article -->\n";
 				}
 				else
 				{
-					$result="\n<!-- Place Article *article=".$articleid."* -->\n"
-						.$this->getArticle($articleid,'introtext')."\n<!-- end of Place Article -->\n";
+					//$result="\n<!-- Place Article *article=".$articleid."* -->\n"
+					$result=$this->getArticle($articleid,'introtext');//."\n<!-- end of Place Article -->\n";
 				
 					if($this->params->get( 'allowcontentplugins' ))
 					{
@@ -90,7 +104,7 @@ class plgSystemPlaceArticle extends JPlugin
 						$result=$o->text;
 					}
 				}
-				
+							
 				$text_original=str_replace($fList[$i],$result,$text_original);	
 				$count++;
 			}
@@ -141,16 +155,29 @@ class plgSystemPlaceArticle extends JPlugin
 		$where_str=implode(' AND ' , $where);
 				
 		$query='SELECT '.$field.' FROM #__content WHERE '.$where_str.' LIMIT 1';
-				
-		$db->setQuery($query);
-		if (!$db->query())    return ( $db->stderr());
-				
-		$rows=$db->loadAssocList();
+		
+		try
+		{
+			$rows = $db->setQuery($query)->loadAssocList();
+		}
+		catch (ExecutionFailureException $e)
+		{
+			return null;
+		}
+
+
+		
+		if (!$rows)
+		{
+			return null;
+		}
+		
 				
 		if(count($rows)!=1)
-			return ""; //return nothing if article not found or outdated or unoublished
+			return null;
 					
 		$row=$rows[0];
+		
 		return $row[$field];
 	}
 	

@@ -2,7 +2,6 @@
 /**
 * Place Article Joomla! Plugin
 *
-* @version	2.2.1
 * @author    Ivan Komlev
 * @copyright Copyright (C) 2012-2018 Ivan Komlev. All rights reserved.
 * @license	 GNU/GPL

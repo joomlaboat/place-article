@@ -20,13 +20,7 @@ class plgSystemPlaceArticle extends JPlugin
 	{
 		$version = new Version;
 
-		$isSite=true;
-		if((int)$version->getShortVersion()>=4)
-			$isSite=$this->app->isClient('site');
-		else
-			$isSite=JFactory::getApplication()->isSite();
-		
-		if($isSite)
+		if($this->app->isClient('site'))
 		{
 			
 			//Only run from the client-side, never the admin side
@@ -50,8 +44,6 @@ class plgSystemPlaceArticle extends JPlugin
 
 			}
 		}
-		
-		
 	}
 	
 	

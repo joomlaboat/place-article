@@ -2,8 +2,8 @@
 <extension version="2.5" type="plugin" group="system" method="upgrade">
 	<name>Place Article</name>
 	<author>Ivan Komlev</author>
-	<creationDate>September 2019</creationDate>
-	<copyright>Copyright (C) 2010-2019 Ivan Komlev. All rights reserved.</copyright>
+	<creationDate>September 2021</creationDate>
+	<copyright>Copyright (C) 2010-2021 Ivan Komlev. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>support@joomlaboat.com</authorEmail>
 	<authorUrl>http://www.joomlaboat.com/</authorUrl>
